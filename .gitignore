@@ -1,0 +1,4 @@
+# ignore some shit, 
+# produced by DrRacket
+#######################
+*.rkt~
