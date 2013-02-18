@@ -17,16 +17,21 @@
 ;; Improved sqrt-proc, with modified good-enough? proc
 
 (define (__sqrt x)
-  (define (sqrt-iter guess x)
-    (define (good-enough? guess next-guess)
-      (< (abs (- guess next-guess)) 0.001))
-    (define (improve guess)
-      (average guess (/ x guess)))
-    (if (good-enough? guess (improve guess))
+  (define (next-step guess next-guess)
+    (if (good-enough? guess next-guess)
         guess
-        (sqrt-iter (improve guess)
-                   x)))
+        (sqrt-iter next-guess x)))
+  (define (good-enough? guess next-guess)
+    (< (abs (- guess next-guess)) 0.001))
+  (define (improve guess)
+    (average guess (/ x guess)))
+  (define (sqrt-iter guess x)
+    (next-step guess (improve guess)))
   (sqrt-iter 1.0 x))
+
+;;
+(__sqrt 36)
+;;
 
 ;; Tests to show, that current implemenation
 ;; is not valid for large and small numbers
