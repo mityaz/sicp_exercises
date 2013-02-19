@@ -6,7 +6,7 @@
 
 (define (sqrt% x)
   (define (next-step guess next-guess)
-    (if (good-enough? guess next-guess)
+    (if (or (= next-guess 0) (good-enough? guess next-guess))
         next-guess
         (sqrt-iter next-guess x)))
   (define (good-enough? guess next-guess)
@@ -19,3 +19,4 @@
 
 ;; Test sample
 (square (sqrt% 1e-12)) ;; yuppi!!!! now it's really 1e-12 again!!!
+(sqrt% 0)

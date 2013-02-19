@@ -7,8 +7,8 @@
 
 (define (cubrt x)
   (define (next-step guess next-guess)
-    (if (good-enough? guess next-guess)
-        guess
+    (if (or (= next-guess 0) (good-enough? guess next-guess))
+        next-guess
         (cubrt-iter next-guess x)))
   (define (good-enough? guess next-guess)
     (< (abs (/ (- guess next-guess) next-guess)) 0.001))
@@ -23,3 +23,4 @@
 (cubic(cubrt 1000))
 (cubic(cubrt 0.002))
 (cubic(cubrt 1e-12))
+(cubic(cubrt 0))
