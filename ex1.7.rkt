@@ -1,12 +1,14 @@
 (define (square x) (* x x))
 (define (average x y)
   (/ (+ x y) 2))
+(define (close-to-zero? x)
+  (< (abs x) 1e-6))
 
 ;; Improved sqrt-proc, with modified good-enough? proc
 
 (define (sqrt% x)
   (define (next-step guess next-guess)
-    (if (or (= next-guess 0) (good-enough? guess next-guess))
+    (if (or (close-to-zero? next-guess) (good-enough? guess next-guess))
         next-guess
         (sqrt-iter next-guess x)))
   (define (good-enough? guess next-guess)
@@ -19,4 +21,4 @@
 
 ;; Test sample
 (square (sqrt% 1e-12)) ;; yuppi!!!! now it's really 1e-12 again!!!
-(sqrt% 0)
+(square (sqrt% 0))

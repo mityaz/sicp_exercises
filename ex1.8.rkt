@@ -1,13 +1,18 @@
 
 (define (cubic x) (* x x x))
 
+;; Что примечательно, нижеприведенная функция
+;; начинает "нормально" работать, если число не больше 1e-6
+(define (close-to-zero? x)
+  (< (abs x) 1e-6))
+
 ;;
 ;; Improved version
 ;;
 
 (define (cubrt x)
   (define (next-step guess next-guess)
-    (if (or (= next-guess 0) (good-enough? guess next-guess))
+    (if (or (close-to-zero? next-guess) (good-enough? guess next-guess))
         next-guess
         (cubrt-iter next-guess x)))
   (define (good-enough? guess next-guess)
